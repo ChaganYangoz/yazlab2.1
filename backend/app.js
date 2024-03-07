@@ -23,8 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-let yayinRouter = require('./routes/YayinRouter');
-app.use('/Yayin', yayinRouter);
 
 
 
