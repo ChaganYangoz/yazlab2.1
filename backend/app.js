@@ -7,12 +7,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-
-
 var app = express();
 
 
@@ -29,13 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-
-
-let usersRouter = require('./routes/UsersRouter');
-app.use('/users', usersRouter);
+let yayinRouter = require('./routes/YayinRouter');
+app.use('/Yayin', yayinRouter);
 
 
 

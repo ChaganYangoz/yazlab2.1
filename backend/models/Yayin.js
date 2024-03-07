@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const yayinSchema = new mongoose.Schema({
-    id: Int32Array,
+    content: String,
 });
 
 const Yayin = mongoose.model('Yayin', yayinSchema);

@@ -4,9 +4,9 @@ var router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const {id} = req.body;
+    const {content} = req.body;
     const newYayin = await Yayin.create({
-      id
+      content
     });
     res.status(201).json({ message: "Yayin Created!!", Yayin: newYayin });
   } catch (error) {
