@@ -1,6 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-const saveToMongoDB = require("./saveToMongoDB"); // saveToMongoDB fonksiyonunu içeren dosya
+const saveToMongoDB = require("./Database");
+
 
 async function getTitleAndLink() {
   try {

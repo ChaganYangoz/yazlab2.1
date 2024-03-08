@@ -3,7 +3,7 @@ const { MongoClient } = require("mongodb");
 async function saveToMongoDB(title, siteLink) {
   try {
     // MongoDB'ye bağlan
-    const uri = "mongodb://localhost:27017";
+    const uri = "mongodb+srv://tuf:twofun1905@cluster0.ci77jcw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     await client.connect();
       
