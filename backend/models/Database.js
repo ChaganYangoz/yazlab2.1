@@ -9,7 +9,7 @@ async function saveToMongoDB(title, siteLink) {
       
     // Veritabanına eriş
     const database = client.db("mydatabase");
-    const collection = database.collection("titles");
+    const collection = database.collection("articles");
 
     // Başlık bilgisini ve site bağlantısını MongoDB'ye kaydet
     await collection.insertOne({ title: title, siteLink: siteLink });
