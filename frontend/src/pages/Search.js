@@ -1,7 +1,19 @@
 const Search = () => {
+  const socket = new WebSocket("ws://localhost:8080");
+
+  socket.addEventListener("open", () => {
+    console.log("WebSocket bağlantısı kuruldu.");
+  });
+
+  socket.addEventListener("message", (event) => {
+    console.log("Sunucudan gelen mesaj:", event.data);
+  });
+
   function handleSubmit() {
     const searchItem = document.querySelector("#searchbar");
-    console.log(searchItem.value);
+    let message = searchItem.value;
+    socket.send(message);
+    searchItem.value = "";
   }
 
   return (
