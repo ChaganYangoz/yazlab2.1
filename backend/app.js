@@ -6,6 +6,7 @@ var logger = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const getLink = require("./models/LinkScrapper");
+const { getPrivateFromMongoDB, getAllFromMongoDB } = require('./models/Database');
 var app = express();
 
 mongoose.set("strictQuery", false);
@@ -18,6 +19,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+
+app.get('/getAllMongoData', async (req, res) => {
+  try {
+    const data = await getAllFromMongoDB();
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get('/getPrivateMongoData', async (req, res) => {
+  try {
+    const data = await getPrivateFromMongoDB();
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
