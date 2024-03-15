@@ -24,7 +24,7 @@ async function getLink(message) {
         });
       });
 
-      console.log(links);
+      return links;
     } else {
       console.warn("Response başarısız oldu.");
     }

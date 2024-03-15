@@ -14,6 +14,25 @@ const Search = () => {
     let message = searchItem.value;
     socket.send(message);
     searchItem.value = "";
+    filter(message);
+  }
+
+  async function filter(message) {
+    fetch(`http://localhost:8000/getPrivateMongoData?degisken=${message}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Alınan verileri kullanma
+        console.log(data);
+      })
+      .catch((error) => {
+        // Hata durumunda işlemler
+        console.error("There was a problem with the fetch operation:", error);
+      });
   }
 
   return (

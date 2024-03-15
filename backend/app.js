@@ -6,7 +6,11 @@ var logger = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const getLink = require("./models/LinkScrapper");
-const { getPrivateFromMongoDB, getAllFromMongoDB } = require('./models/Database');
+const getEveryone = require("./models/Scrapper");
+const {
+  getPrivateFromMongoDB,
+  getAllFromMongoDB,
+} = require("./models/Database");
 var app = express();
 
 mongoose.set("strictQuery", false);
@@ -20,8 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-
-app.get('/getAllMongoData', async (req, res) => {
+app.get("/getAllMongoData", async (req, res) => {
   try {
     const data = await getAllFromMongoDB();
     res.json(data);
@@ -31,9 +34,10 @@ app.get('/getAllMongoData', async (req, res) => {
   }
 });
 
-app.get('/getPrivateMongoData', async (req, res) => {
+app.get("/getPrivateMongoData", async (req, res) => {
   try {
-    const data = await getPrivateFromMongoDB();
+    const degisken = req.query.degisken; // query string parametresini al
+    const data = await getPrivateFromMongoDB(degisken);
     res.json(data);
   } catch (error) {
     console.error(error);
@@ -57,7 +61,14 @@ wss.on("connection", (ws) => {
     console.log("İstemciden gelen mesaj:", message.toString());
     getLink(message.toString())
       .then((links) => {
-        console.log(links);
+        links.slice(0, 5).forEach((link) => {
+          console.log(link.url);
+          getEveryone(link.url, message.toString())
+            .then((resp) => {})
+            .catch((error) => {
+              console.error("Hata:", error);
+            });
+        });
       })
       .catch((error) => {
         console.error("Hata:", error);
