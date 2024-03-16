@@ -89,7 +89,7 @@ async function getPrivateFromMongoDB(filterWord) {
     // MongoDB'ye bağlan
     const uri =
       "mongodb+srv://tuf:twofun1905@cluster0.ci77jcw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    const client = new MongoClient(uri);
     await client.connect();
 
     // Veritabanına eriş

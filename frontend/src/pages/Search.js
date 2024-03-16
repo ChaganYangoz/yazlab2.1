@@ -14,10 +14,11 @@ const Search = () => {
     let message = searchItem.value;
     socket.send(message);
     searchItem.value = "";
-    filter(message);
   }
 
-  async function filter(message) {
+  async function filter() {
+    const searchItem = document.querySelector("#searchbar");
+    let message = searchItem.value;
     fetch(`http://localhost:8000/getPrivateMongoData?degisken=${message}`)
       .then((response) => {
         if (!response.ok) {
@@ -39,6 +40,7 @@ const Search = () => {
     <div>
       <input type="text" id="searchbar" />
       <button onClick={handleSubmit}>Search</button>
+      <button onClick={filter}>Filter</button>
     </div>
   );
 };
