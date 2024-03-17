@@ -67,6 +67,23 @@ const Home = () => {
       });
   }
 
+  const handleSortByDate = () => {
+    const sorted = [...datas].sort((a, b) => {
+      const yearA = parseInt(a.date.substring(a.date.length - 4));
+      const yearB = parseInt(b.date.substring(b.date.length - 4));
+      return yearA - yearB;
+    });
+    setDatas(sorted);
+  };
+
+  const handleSortByDateDesc = () => {
+    const sorted = [...datas].sort((a, b) => {
+      const yearA = parseInt(a.date.substring(a.date.length - 4));
+      const yearB = parseInt(b.date.substring(b.date.length - 4));
+      return yearB - yearA;
+    });
+    setDatas(sorted);
+  };
   return (
     <>
       <div>
@@ -74,6 +91,8 @@ const Home = () => {
         <button onClick={handleSubmit}>Search</button>
         <button onClick={filter}>Filter</button>
       </div>
+      <button onClick={handleSortByDate}>Sort By Date Oldest First</button>
+      <button onClick={handleSortByDateDesc}>Sort By Date Latest First</button>
       {datas.map((data) => (
         <div className="articleContainer">
           <Link to={{ pathname: "/page", state: { id: data._id } }}>

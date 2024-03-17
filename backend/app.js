@@ -25,10 +25,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-
-app.get('/getByIDFromMongoDB/:articleID', async (req, res) => {
+app.get("/getByIDFromMongoDB", async (req, res) => {
   try {
-    const articleID = req.params.articleID;
+    const articleID = req.query.articleID;
     const allinfo = await getByIDFromMongoDB(articleID);
     res.json(allinfo);
   } catch (error) {
@@ -36,7 +35,6 @@ app.get('/getByIDFromMongoDB/:articleID', async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
 
 app.get("/getAllMongoData", async (req, res) => {
   try {
