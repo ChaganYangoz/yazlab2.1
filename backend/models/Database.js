@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require('mongodb');
 
 async function saveToMongoDB(
   title,
@@ -51,6 +51,30 @@ async function saveToMongoDB(
     await client.close();
   } catch (error) {
     console.log("Hata:", error);
+  }
+}
+
+async function getByIDFromMongoDB(articleID) {
+  try {
+    // MongoDB'ye bağlan
+    const uri = "mongodb+srv://tuf:twofun1905@cluster0.ci77jcw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    const client = new MongoClient(uri);
+    await client.connect();
+
+    // Veritabanına eriş
+    const database = client.db("mydatabase");
+    const collection = database.collection("articles");
+
+    // İlgili ID ile belgeyi bul
+    const result = await collection.findOne({ _id: new ObjectId(articleID) });
+
+    // Bağlantıyı kapat
+    await client.close();
+
+    return result; // Belgeyi döndür
+  } catch (error) {
+    console.log("Hata:", error);
+    return null; // Hata durumunda null döndür
   }
 }
 
@@ -115,4 +139,5 @@ module.exports = {
   saveToMongoDB,
   getAllFromMongoDB,
   getPrivateFromMongoDB,
+  getByIDFromMongoDB
 };

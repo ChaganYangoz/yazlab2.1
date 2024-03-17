@@ -10,6 +10,7 @@ const getEveryone = require("./models/Scrapper");
 const {
   getPrivateFromMongoDB,
   getAllFromMongoDB,
+  getByIDFromMongoDB,
 } = require("./models/Database");
 var app = express();
 
@@ -23,6 +24,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+
+app.get('/getByIDFromMongoDB/:articleID', async (req, res) => {
+  try {
+    const articleID = req.params.articleID;
+    const allinfo = await getByIDFromMongoDB(articleID);
+    res.json(allinfo);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 
 app.get("/getAllMongoData", async (req, res) => {
   try {

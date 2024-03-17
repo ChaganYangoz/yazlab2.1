@@ -74,4 +74,5 @@ async function getEveryone(wantedUrl = "https://dergipark.org.tr/tr/pub/gujs/iss
   }
 }
 
+
 module.exports = getEveryone;
