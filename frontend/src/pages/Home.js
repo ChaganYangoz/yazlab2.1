@@ -84,6 +84,7 @@ const Home = () => {
     });
     setDatas(sorted);
   };
+
   return (
     <>
       <div>

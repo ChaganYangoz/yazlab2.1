@@ -29,12 +29,15 @@ const Page = () => {
 
   return (
     <div>
-      <div>{datas.title}</div>
+      <h1>{datas.title}</h1>
       <div>Writer: {datas.writer}</div>
       <div>Date: {datas.date}</div>
       <div>Article Keywords: {datas.article_keywords}</div>
       <div>Keywords: {datas.keywords}</div>
       <div>Link: {datas.link}</div>
+      <h3>Abstract</h3>
+      <div>{datas.abstract}</div>
+      <h3>References</h3>
       <div>References: {datas.referans}</div>
     </div>
   );
